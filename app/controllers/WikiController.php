@@ -14,11 +14,11 @@ class WikiController extends Controller
 	function view($slug)
 	{
 		$page = $this->cache->Get('page', $slug, function() use ($slug){
-			Page::find_by_slug($slug);
+			return Page::find_by_slug($slug);
 		}, 5);
 		if($page)
 		{
-			$this->viewTemplate->extract($page->Attributes());
+			$this->viewTemplate->extract($page->attributes());
 		}
 		else
 		{
@@ -34,28 +34,26 @@ class WikiController extends Controller
 		if($this->request->SERVER['REQUEST_METHOD'] == 'POST')
 		{
 			$page = $this->cache->Get('page', $slug, function() use ($slug){
-				Page::find_by_slug($slug);
+				return Page::find_by_slug($slug);
 			}, 5);
 			if(!$page)
 			{
 				$page = new Page();
 			}
+			$page->slug = $slug;
 			$page->title = $this->request->POST['title'];
 			$page->contentmd = $this->request->POST['content'];
-			var_dump($page->attributes());
 			$page->save();
-			//$this->request->Header('Location', '/' . $page->slug);
+			$this->request->Header('Location', '/' . $page->slug);
 		}
 		else
 		{
 			$page = $this->cache->Get('page', $slug, function() use ($slug){
-				Page::find_by_slug($slug);
+				return Page::find_by_slug($slug);
 			}, 5);
 			if($page)
 			{
-				$this->editTemplate->slug = $page->slug;
-				$this->editTemplate->title = $page->title;
-				$this->editTemplate->contentmd = $page->contentmd;
+				$this->editTemplate->extract($page->attributes());
 			}
 			else
 			{

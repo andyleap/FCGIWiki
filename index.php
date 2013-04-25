@@ -6,9 +6,8 @@ $framework = new Framework(array('DBConnections' => array('development' => 'mysq
 $framework->Router->AddRoute('/login', array('controller' => 'Wiki', 'action' => 'view'));
 
 
-
 $framework->Router->AddRoute('/:slug/:action', array('controller' => 'Wiki'));
-$framework->Router->AddRoute('/:slug', array('controller' => 'Wiki', 'action' => 'view', 'slug' => 'Index'));
+$framework->Router->AddRoute('/:slug', array('controller' => 'Wiki', 'action' => 'view', 'slug' => 'index'));
 
 
 $server = new FCGI_Server();
