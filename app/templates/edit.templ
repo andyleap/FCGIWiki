@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>FCGI Wiki</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap -->
+		<link href="/css/bootstrap.min.css" rel="stylesheet" media="screen">
+	</head>
+	<body>
+		<div class="container-fluid">
+			<div class="row-fluid">
+				<div class="span3">
+					{assign name=mode value=edit}
+					{include file=sidebar/sidebar}
+				</div>
+				<div class="span9">
+					<div class="row-fluid">
+						{include file=menu/menu}
+					</div>
+					<div class="row-fluid">
+						<div class="well">
+							<form method="POST">
+								<input type="text" name="title" value="{=title}" class="span12"/>
+								<textarea id="content" name="content" style="display:none">{=contentmd}</textarea>
+								<div id="epiceditor"></div>
+								<input type="submit" value="Save"/>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<script src="/js/bootstrap.min.js"></script>
+		<script src="/epiceditor/js/epiceditor.js"></script>
+		<script>
+{literal}
+var opts = {
+	container: 'epiceditor',
+	basePath: '/epiceditor',
+	clientSideStorage: false,
+	textarea: $('#content')[0]
+}
+var editor = new EpicEditor(opts).load();
+{/literal}
+		</script>
+	</body>
+</html>

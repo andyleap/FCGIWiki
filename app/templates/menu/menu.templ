@@ -1,0 +1,9 @@
+<div class="navbar">
+	<div class="navbar-inner">
+		<a class="brand" href="/{=slug}">{=title}</a>
+		<ul class="nav">
+			<li{if $mode=='view'} class="active"{/if}><a href="/{=slug}">View</a></li>
+			<li{if $mode=='edit'} class="active"{/if}><a href="/{=slug}/edit">Edit</a></li>
+		</ul>
+	</div>
+</div>
